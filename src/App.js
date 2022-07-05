@@ -3,15 +3,17 @@ import axios from 'axios'
 import Fuse from 'fuse.js'
 import './style/style.css'
 import Create from './components/create.js'
+import Read from './components/read.js'
+import Update from './components/update.js'
 
 const App = () => {
   
-  const apiUrl = 'http://shinbalnom-backend.herokuapp.com'
+  const apiUrl = 'https://shinbalnom-backend.herokuapp.com'
 
   // ------------------------------
   // Hooks
   // ------------------------------
-  const [sneaker, setSneaker] = useState([])
+  const [sneaker, setSneaker] = useState("")
   const [showSneaker, setShowSneaker] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [query, setQuery] = useState("")
@@ -21,9 +23,11 @@ const App = () => {
   // Effect Hook
   // ------------------------------
   useEffect(() => {
-    axios.get(`${apiUrl}/releases`).then((response) => {
-      handleRead(response.data)
-    })
+    axios
+      .get(`${apiUrl}/releases`)
+      .then((response) => {
+        handleRead(response.data)
+      })
   }, [])
 
   // ------------------------------
@@ -33,13 +37,22 @@ const App = () => {
     axios
       .get(`${apiUrl}/releases`)
       .then(response => setSneaker)
+      // .catch(err =>{
+      //   console.log(err)
+      // })
+      console.log(sneaker.brand)
+      console.log(sneaker.silhouette)
+      console.log(sneaker.nickname)
   }
   const handleCreate = (addSneaker) => {
     axios
-      .sneaker(`${apiUrl}/releases`, addSneaker)
+      .post(`${apiUrl}/releases`, addSneaker)
       .then((response) => {
         handleRead()
       })
+      // .catch(err =>{
+      //   console.log(err)
+      // })
   }
   const handleUpdate = (editSneaker) => {
     axios.put(`${apiUrl}/releases/` + editSneaker.id, editSneaker)
@@ -58,7 +71,7 @@ const App = () => {
     })
   }
   const handleShowToggle = (sneaker) => {
-    showToggle != `${sneaker.id}`
+    showToggle !== `${sneaker.id}`
     ? setShowToggle(`${sneaker.id}`)
     : setShowToggle("")
  }
@@ -104,43 +117,44 @@ const App = () => {
 
         {/* Create component */}
         <button className="btn" onClick={toggleCreate}>New Drop</button>
-        {showSneaker == true ?
+        {showSneaker === true ?
         <Create handleCreate={handleCreate} />
         : null}
         <br/><br/>
 
         {/* Search component */}
-        <button className="btn" onClick={()=>setShowSearch(s=>!s)}>Search Sneakers</button><br/>
+        {/* <button className="btn" onClick={()=>setShowSearch(s=>!s)}>Search Sneakers</button><br/>
         {showSearch ?
         <input type="text" placeholder="Search" value={query} onChange={sneakerSearch} />
         : null }
-        <br/>
+        <br/> */}
 
     </div>
 
-    {/* <div>
+    <div>
       
-      {sneakerResults.map((post) => {
+      {/* {sneakerResults.map((sneaker) => { */}
         return(
-          showToggle != `${post.id}`
+          showToggle !== `${sneaker.id}`
           ?
-          <div className="card" key={post.id} onClick={() => {handleShowToggle(post)}}>
+          <div className="card" key={sneaker.id} onClick={() => {handleShowToggle(sneaker)}}>
             <div className="zoom-container">
-              <img src={`${post.img}`} />
+              <img src={`${sneaker.image}`} alt="Shinbalnom" />
             </div>
             <h2>{sneaker.name}</h2>
           </div>
           :
           <div className="show" key={sneaker.id}>
-            <div onClick={() => {handleShowToggle(post)}}>
+            <div onClick={() => {handleShowToggle(sneaker)}}>
               <Read sneaker={sneaker} />
             </div>
             <Update handleUpdate={handleUpdate} handleDelete={handleDelete} sneaker={sneaker} handleRead={handleRead}/>
           </div>
         )
-      })} 
+      {/* } */}
+      )}
 
-    </div> */}
+    </div>
 
     </>
   )

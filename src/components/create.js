@@ -11,7 +11,7 @@ const Create = (props) => {
         styleCode: "",
         description: "",
         releaseDate: "",
-        estimatedRetailValue: "",
+        estimatedRetailPrice: "",
         image: "",
     }
 
@@ -37,7 +37,7 @@ const Create = (props) => {
             styleCode: "",
             description: "",
             releaseDate: "",
-            estimatedRetailValue: "",
+            estimatedRetailPrice: "",
             image: "",    
         })
     }
@@ -70,8 +70,8 @@ const Create = (props) => {
                 <label htmlFor="releaseDate">Release Date: </label>
                     <input type="text" name="releaseDate" value={sneaker.releaseDate} onChange={handleChange} />
                         <br/><br/>
-                <label htmlFor="estimatedRetailValue">Estimated Retail Value: </label>
-                    <input type="text" name="estimatedRetailValue" value={sneaker.estimatedRetailValue} onChange={handleChange} />
+                <label htmlFor="estimatedRetailValue">MSRP: </label>
+                    <input type="text" name="estimatedRetailPrice" value={sneaker.estimatedRetailPrice} onChange={handleChange} />
                         <br/><br/>
                 <label htmlFor="image">Image: </label>
                     <input type="text" name="image" value={sneaker.image} onChange={handleChange} />
@@ -80,6 +80,6 @@ const Create = (props) => {
             </form>
         </>
     )
-};
+}
 
 export default Create
