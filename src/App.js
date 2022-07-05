@@ -8,7 +8,7 @@ import Update from './components/update.js'
 
 const App = () => {
   
-  const apiUrl = 'https://shinbalnom-backend.herokuapp.com'
+  const apiUrl = 'https://shinbalnom-backend.herokuapp.com/releases'
 
   // ------------------------------
   // Hooks
@@ -31,16 +31,16 @@ const App = () => {
   // ------------------------------
   const handleRead = () => {
     axios
-      .get(`${apiUrl}/releases`)
+      .get(apiUrl)
       .then(response => setSneaker)
       .catch(err =>{
         console.log(err)
       })
-      console.log(sneaker.brand)
+      console.log(sneaker.image)
   }
   const handleCreate = (addSneaker) => {
     axios
-      .post(`${apiUrl}/releases`, addSneaker)
+      .post(apiUrl, addSneaker)
       .then((response) => {
         handleRead()
       })
@@ -50,7 +50,7 @@ const App = () => {
       console.log(sneaker.brand)
   }
   const handleUpdate = (editSneaker) => {
-    axios.put(`${apiUrl}/releases/` + editSneaker.id, editSneaker)
+    axios.put(`${apiUrl}/` + editSneaker.id, editSneaker)
       .then((response) => {
         setSneaker(sneaker.map((sneaker) => {
           return sneaker.id !== response.data.id ? sneaker : response.data
@@ -59,7 +59,7 @@ const App = () => {
       console.log(sneaker.brand)
   }
   const handleDelete = (deletedSneaker) => {
-    axios.delete(`${apiUrl}/releases/` + deletedSneaker.id)
+    axios.delete(`${apiUrl}/` + deletedSneaker.id)
     .then((response) => {
       setSneaker(
         sneaker.filter(sneakers => sneakers.id !== deletedSneaker.id)
@@ -132,9 +132,9 @@ const App = () => {
       
       <img src={`${sneaker.image}`} alt="Shinbalnom" />
       <Read sneaker={sneaker} />
-      <Update handleUpdate={handleUpdate} handleDelete={handleDelete} sneaker={sneaker} handleRead={handleRead}/>
+      {/* <Update handleUpdate={handleUpdate} handleDelete={handleDelete} sneaker={sneaker} handleRead={handleRead}/> */}
 
-      {/* {sneakerResults.map((sneaker) => {
+      {sneakerResults.map((sneaker) => {
         return(
           showToggle !== `${sneaker.id}`
           ?
@@ -152,7 +152,7 @@ const App = () => {
             <Update handleUpdate={handleUpdate} handleDelete={handleDelete} sneaker={sneaker} handleRead={handleRead}/>
           </div>
         )
-        })} */}
+        })}
 
     </div>
 
