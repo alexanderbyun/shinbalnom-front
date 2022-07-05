@@ -6,7 +6,7 @@ import Create from './components/create.js'
 
 const App = () => {
   
-  const apiUrl = 'https://shinbalnom-backend.herokuapp.com/releases'
+  const apiUrl = 'http://shinbalnom-backend.herokuapp.com'
 
   // ------------------------------
   // Hooks
@@ -78,19 +78,70 @@ const App = () => {
     ]
   })
   const results = fuse.search(query)
-  const postResults = query ? results.map(result => result.item) : sneaker
-  function postSearch({currentTarget = {}}) {
+  const sneakerResults = query ? results.map(result => result.item) : sneaker
+  function sneakerSearch({currentTarget = {}}) {
     const {value} = currentTarget
     setQuery(value)
   }
+
+  // ------------------------------
+  // Toggle fields
+  // ------------------------------
+  const toggleCreate = () => {
+		setShowSneaker(!showSneaker)
+	}
 
   // ------------------------------
   // Return
   // ------------------------------
   return (
     <>
-     <h1>Hello World!</h1>
-     <h2>Goodbye</h2>
+
+     <div className="header">
+
+        <h1>Shinbalnom</h1>
+        <h2>Upcoming Releases</h2>
+
+        {/* Create component */}
+        <button className="btn" onClick={toggleCreate}>New Drop</button>
+        {showSneaker == true ?
+        <Create handleCreate={handleCreate} />
+        : null}
+        <br/><br/>
+
+        {/* Search component */}
+        <button className="btn" onClick={()=>setShowSearch(s=>!s)}>Search Sneakers</button><br/>
+        {showSearch ?
+        <input type="text" placeholder="Search" value={query} onChange={sneakerSearch} />
+        : null }
+        <br/>
+
+    </div>
+
+    {/* <div>
+      
+      {sneakerResults.map((post) => {
+        return(
+          showToggle != `${post.id}`
+          ?
+          <div className="card" key={post.id} onClick={() => {handleShowToggle(post)}}>
+            <div className="zoom-container">
+              <img src={`${post.img}`} />
+            </div>
+            <h2>{sneaker.name}</h2>
+          </div>
+          :
+          <div className="show" key={sneaker.id}>
+            <div onClick={() => {handleShowToggle(post)}}>
+              <Read sneaker={sneaker} />
+            </div>
+            <Update handleUpdate={handleUpdate} handleDelete={handleDelete} sneaker={sneaker} handleRead={handleRead}/>
+          </div>
+        )
+      })} 
+
+    </div> */}
+
     </>
   )
 }
