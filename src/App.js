@@ -13,7 +13,7 @@ const App = () => {
   // ------------------------------
   // Hooks
   // ------------------------------
-  const [sneaker, setSneaker] = useState("")
+  const [sneaker, setSneaker] = useState([])
   const [showSneaker, setShowSneaker] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [query, setQuery] = useState("")
@@ -23,11 +23,7 @@ const App = () => {
   // Effect Hook
   // ------------------------------
   useEffect(() => {
-    axios
-      .get(`${apiUrl}/releases`)
-      .then((response) => {
-        handleRead(response.data)
-      })
+    handleRead()
   }, [])
 
   // ------------------------------
@@ -37,12 +33,10 @@ const App = () => {
     axios
       .get(`${apiUrl}/releases`)
       .then(response => setSneaker)
-      // .catch(err =>{
-      //   console.log(err)
-      // })
+      .catch(err =>{
+        console.log(err)
+      })
       console.log(sneaker.brand)
-      console.log(sneaker.silhouette)
-      console.log(sneaker.nickname)
   }
   const handleCreate = (addSneaker) => {
     axios
@@ -50,9 +44,10 @@ const App = () => {
       .then((response) => {
         handleRead()
       })
-      // .catch(err =>{
-      //   console.log(err)
-      // })
+      .catch(err =>{
+        console.log(err)
+      })
+      console.log(sneaker.brand)
   }
   const handleUpdate = (editSneaker) => {
     axios.put(`${apiUrl}/releases/` + editSneaker.id, editSneaker)
@@ -61,6 +56,7 @@ const App = () => {
           return sneaker.id !== response.data.id ? sneaker : response.data
         }))
       })
+      console.log(sneaker.brand)
   }
   const handleDelete = (deletedSneaker) => {
     axios.delete(`${apiUrl}/releases/` + deletedSneaker.id)
@@ -69,6 +65,7 @@ const App = () => {
         sneaker.filter(sneakers => sneakers.id !== deletedSneaker.id)
       )
     })
+    console.log(sneaker.brand)
   }
   const handleShowToggle = (sneaker) => {
     showToggle !== `${sneaker.id}`
@@ -123,17 +120,21 @@ const App = () => {
         <br/><br/>
 
         {/* Search component */}
-        {/* <button className="btn" onClick={()=>setShowSearch(s=>!s)}>Search Sneakers</button><br/>
+        <button className="btn" onClick={()=>setShowSearch(s=>!s)}>Search Sneakers</button><br/>
         {showSearch ?
         <input type="text" placeholder="Search" value={query} onChange={sneakerSearch} />
         : null }
-        <br/> */}
+        <br/>
 
     </div>
 
     <div>
       
-      {/* {sneakerResults.map((sneaker) => { */}
+      <img src={`${sneaker.image}`} alt="Shinbalnom" />
+      <Read sneaker={sneaker} />
+      <Update handleUpdate={handleUpdate} handleDelete={handleDelete} sneaker={sneaker} handleRead={handleRead}/>
+
+      {/* {sneakerResults.map((sneaker) => {
         return(
           showToggle !== `${sneaker.id}`
           ?
@@ -151,8 +152,7 @@ const App = () => {
             <Update handleUpdate={handleUpdate} handleDelete={handleDelete} sneaker={sneaker} handleRead={handleRead}/>
           </div>
         )
-      {/* } */}
-      )}
+        })} */}
 
     </div>
 
