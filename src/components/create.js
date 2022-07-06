@@ -62,14 +62,14 @@ const Create = (props) => {
                     <input type="text" name="nickname" value={sneaker.nickname} onChange={handleChange} />
                         <br/><br/>
                 <label htmlFor="styleCode">Style Code: </label>
-                    <input type="text" name="syleCode" value={sneaker.styleCode} onChange={handleChange} />
+                    <input type="text" name="styleCode" value={sneaker.styleCode} onChange={handleChange} />
                         <br/><br/>
                 <label htmlFor="description">Description: </label>
                     <input type="text" name="description" value={sneaker.description} onChange={handleChange} />
                         <br/><br/>
-                <label htmlFor="releaseDate">Release Date: </label>
+                {/* <label htmlFor="releaseDate">Release Date: </label>
                     <input type="text" name="releaseDate" placeholder="YYYY" value={sneaker.releaseDate} onChange={handleChange} />
-                        <br/><br/>
+                        <br/><br/> */}
                 <label htmlFor="estimatedRetailValue">MSRP: </label>
                     <input type="text" name="estimatedRetailPrice" value={sneaker.estimatedRetailPrice} onChange={handleChange} />
                         <br/><br/>

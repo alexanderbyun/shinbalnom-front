@@ -17,6 +17,7 @@ const Update = (props) => {
       const handleSubmit = (event) => {
         event.preventDefault()
         props.handleUpdate(sneaker)
+        props.handleRead()
         window.location.reload(false)
       }
       const handleDeleteSubmit = (event) => {
@@ -32,9 +33,9 @@ const Update = (props) => {
         <div>
             <h2>Edit Post</h2>
             <form onSubmit={handleSubmit}>
-                <label htmlFor='releaseDate'> Release Date: </label>
+                {/* <label htmlFor='releaseDate'> Release Date: </label>
                     <input type="date" name="releaseDate" value={sneaker.releaseDate} onChange={handleChange} />
-                <br/><br/>
+                <br/><br/> */}
                 <label htmlFor='brand'>Brand: </label>
                     <input type="text" name="brand" value={sneaker.brand} onChange={handleChange} />
                 <br/><br/>
@@ -70,6 +71,6 @@ const Update = (props) => {
         </div>
         </>
     )
-};
+}
 
 export default Update

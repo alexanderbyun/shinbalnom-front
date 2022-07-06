@@ -1,4 +1,34 @@
 body {
   background-color: #e8ddd4;
 }
+
+.header {
+  text-align: center;
+}
+
+.card {
+  text-align: center;
+  display: inline-block;
+  margin: auto;
+  width: 30%;
+}
+
+.card img {
+  width: 40%;
+  -webkit-transition: -webkit-transform .8s;
+  transition: -webkit-transform .8s;
+  transition: transform .8s;
+  transition: transform .8s, -webkit-transform .8s;
+  margin: 0 auto;
+}
+
+.card img:hover {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+  overflow: hidden;
+}
+
+.card .read li {
+  list-style: none;
+}
 /*# sourceMappingURL=style.css.map */

@@ -1,3 +1,30 @@
 body {
     background-color: #e8ddd4;
 }
+
+.header {
+    
+    text-align: center;
+
+}
+
+.card {
+    text-align: center;
+    display: inline-block;
+    margin: auto;
+    width: 30%;
+    img {
+        width: 40%;
+        transition: transform .8s;
+        margin: 0 auto;
+            &:hover {
+                transform: scale(1.5);
+                overflow: hidden;
+            }
+    }
+    .read {
+        li {
+        list-style: none;
+        }
+    }
+}

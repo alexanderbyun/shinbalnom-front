@@ -27,6 +27,14 @@ const App = () => {
 		handleRead()
 	}, [])
 
+	// useEffect(() => {
+	// 	axios
+    //     .get(apiUrl)
+    //     .then((response)=>{
+    //         console.log(response)
+    //     })
+	// }, [])
+
 	// ------------------------------
 	// Handlers
 	// ------------------------------
@@ -49,13 +57,13 @@ const App = () => {
 		})
 	}
 	const handleUpdate = (editSneaker) => {
-	axios.put(`${apiUrl}/` + editSneaker.id, editSneaker)
+	axios
+		.put(`${apiUrl}/` + editSneaker.id, editSneaker)
 		.then((response) => {
-		setSneaker(sneaker.map((sneaker) => {
-			return sneaker.id !== response.data.id ? sneaker : response.data
-		}))
+			setSneaker(sneaker.map((sneaker) => {
+				return sneaker.id !== response.data.id ? sneaker : response.data
+			}))
 		})
-		console.log(sneaker.brand)
 	}
 	const handleDelete = (deletedSneaker) => {
 	axios.delete(`${apiUrl}/` + deletedSneaker.id)
@@ -71,6 +79,13 @@ const App = () => {
 	? setShowToggle(`${sneaker.id}`)
 	: setShowToggle("")
 	}
+	const searchToggle = () => {
+		if (showSearch === false) {
+		  setShowSearch(true)
+		} else {
+		  setShowSearch(false)
+		}
+	  }
 
 	// ------------------------------
 	// Toggle fields
@@ -81,59 +96,70 @@ const App = () => {
 	const toggleUpdate = () => {
 		setShowUpdate(!showUpdate)
 	}
-	// const show = (event, sneaker) => {
-	// 	event.preventDefault()
-	// 	axios
-	// 		.put(
-	// 			`${apiUrl}/${sneaker.id}`, {
-	// 				brand: sneaker.brand,
-	// 				silhouette: sneaker.silhouette,
-	// 				nickname: sneaker.nickname,
-	// 				colorway: sneaker.colorway,
-	// 				styleCode: sneaker.styleCode,
-	// 				estimatedRetailValue: sneaker.estimatedRetailValue,
-	// 				description: sneaker.description,
-	// 				releaseDate: sneaker.releaseDate,
-	// 				image: sneaker.image,
-	// 				show: !sneaker.show,
-	// 			}
-	// 		)
-	// 		.then(() => {
-	// 			axios
-	// 				.get(`${apiUrl}`)
-	// 				.then((response) => {
-	// 					setSneaker(response.data)
-	// 				})
-	// 		})
-	// }
+	
+	// ------------------------------
+	// Search components
+	// ------------------------------
+	const fuse = new Fuse (sneaker, {
+		keys: [
+		  'brand',
+		  'silhouette',
+		  'nickname',
+		  'colorway',
+		  'styleCode',
+		  'estimatedRetailPrice'
+		]
+	  })
+	  const results = fuse.search(query)
+	  const sneakerResults = query ? results.map(result => result.item) : sneaker
+	  function sneakerSearch({ currentTarget = {} }) {
+		const { value } = currentTarget;
+		setQuery(value);
+	  }
+
 	// ------------------------------
 	// Return
 	// ------------------------------
 	return (
 		<>
-			<h1>Shinbalnom</h1>
-			<h2>Upcoming Releases</h2>
-
 			<div className="header">
+
+				<img width="70%" src="https://pbs.twimg.com/profile_banners/838789468274446337/1508279115/1500x500" alt="Shinbalnom"/>
+				<h2>Upcoming Releases</h2>
+
 				{/* Create component */}
 				<button className="btn" onClick={toggleCreate}>New Drop</button>
 				{showCreate === true ?
 				<Create handleCreate={handleCreate} />
 				: null}
 				<br/><br/>
+
+				{/* Search component */}
+				<button className="btn" onClick={()=>setShowSearch(s=>!s)}>Search</button><br/>
+				{showSearch ?
+				<input type="text" placeholder="Search parts" value={query} onChange={sneakerSearch} />
+				: null }
+
 			</div>
 				
-			{sneaker.map((sneaker) => {
+			{sneakerResults.map((sneaker) => {
 			return (
 				<>
 					<div className="card" key = {sneaker.id}>
-						<img src={`${sneaker.image}`} alt="Shinbalnom"/>
-						<Read handleRead={handleRead} sneaker={sneaker}/>	
+						<div className="zoom-container">
+						<br/><br/><br/>
+							<img src={`${sneaker.image}`} 
+							alt="Shinbalnom"/>
+						</div>
+						<div className="read">
+							<Read handleRead={handleRead} sneaker={sneaker}/>
+						</div>
 						<button className="btn" onClick={toggleUpdate}>
 							Edit
 						</button>
+						<br/><br/><br/>
 						{showUpdate === true ? 
-						<Update handleUpdate={handleUpdate} handleDelete={handleDelete} sneaker={sneaker}/>
+						<Update handleRead={handleRead} handleUpdate={handleUpdate} handleDelete={handleDelete} sneaker={sneaker}/>
 						: null}
 					</div>
 				</>

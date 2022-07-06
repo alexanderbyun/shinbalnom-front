@@ -10,18 +10,13 @@ const Read = (props) => {
             <div className="read">
                 <div className="showList">
                     <ul>
-                        <li className="itemName">&emsp; Release date: {sneaker.releaseDate}
-                        </li><li className="itemName">&emsp; {sneaker.brand} {sneaker.silhouette} "{sneaker.nickname}"
-                        </li>
-                        <li className="itemName">&emsp; {sneaker.colorway}
-                        </li>
-                        <li className="itemName">&emsp; {sneaker.styleCode}
-                        </li>
-                        <li className="itemName">&emsp; {sneaker.description}
-                        </li>
-                        <li className="itemName">&emsp; MSRP: ${sneaker.estimatedRetailPrice}
+                        {/* <li>Release date: {sneaker.releaseDate}</li> */}
+                        <li className="itemName">{sneaker.brand} {sneaker.silhouette} "{sneaker.nickname}"</li>
+                        <li className="itemName">{sneaker.colorway}</li>
+                        <li className="itemName">{sneaker.styleCode}</li>
+                        <li className="itemName">MSRP: ${sneaker.estimatedRetailPrice}</li>
+                        <li className="itemName">{sneaker.description}</li>
                             <br/><br/>
-                        </li>
                     </ul>
                 </div>
             </div>
