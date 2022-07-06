@@ -68,7 +68,7 @@ const Create = (props) => {
                     <input type="text" name="description" value={sneaker.description} onChange={handleChange} />
                         <br/><br/>
                 <label htmlFor="releaseDate">Release Date: </label>
-                    <input type="text" name="releaseDate" value={sneaker.releaseDate} onChange={handleChange} />
+                    <input type="text" name="releaseDate" placeholder="YYYY" value={sneaker.releaseDate} onChange={handleChange} />
                         <br/><br/>
                 <label htmlFor="estimatedRetailValue">MSRP: </label>
                     <input type="text" name="estimatedRetailPrice" value={sneaker.estimatedRetailPrice} onChange={handleChange} />

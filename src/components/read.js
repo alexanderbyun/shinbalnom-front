@@ -8,39 +8,18 @@ const Read = (props) => {
     return (
         <>
             <div className="read">
-                <h4>{sneaker.brand}</h4>
                 <div className="showList">
                     <ul>
-                        <li className="item">Brand: </li>
-                        <li className="itemName">&emsp; {sneaker.brand}
-                            <br/><br/>
+                        <li className="itemName">&emsp; Release date: {sneaker.releaseDate}
+                        </li><li className="itemName">&emsp; {sneaker.brand} {sneaker.silhouette} "{sneaker.nickname}"
                         </li>
-                        <li className="item">Silhouette: </li>
-                        <li className="itemName">&emsp; {sneaker.silhouette}
-                            <br/><br/>
-                        </li>
-                        <li className="item">Colorway: </li>
                         <li className="itemName">&emsp; {sneaker.colorway}
-                            <br/><br/>
                         </li>
-                        <li className="item">Nickname: </li>
-                        <li className="itemName">&emsp; {sneaker.nickname}
-                            <br/><br/>
-                        </li>
-                        <li className="item">Style Code: </li>
                         <li className="itemName">&emsp; {sneaker.styleCode}
-                            <br/><br/>
                         </li>
-                        <li className="item">Description: </li>
                         <li className="itemName">&emsp; {sneaker.description}
-                            <br/><br/>
                         </li>
-                        <li className="item">Release Date: </li>
-                        <li className="itemName">&emsp; {sneaker.releaseDate}
-                            <br/><br/>
-                        </li>
-                        <li className="item">MSRP: </li>
-                        <li className="itemName">&emsp; {sneaker.estimatedRetailPrice}
+                        <li className="itemName">&emsp; MSRP: ${sneaker.estimatedRetailPrice}
                             <br/><br/>
                         </li>
                     </ul>
