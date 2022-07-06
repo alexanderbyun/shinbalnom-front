@@ -137,7 +137,7 @@ const App = () => {
 				{/* Search component */}
 				<button className="btn" onClick={()=>setShowSearch(s=>!s)}>Search</button><br/>
 				{showSearch ?
-				<input type="text" placeholder="Search parts" value={query} onChange={sneakerSearch} />
+				<input type="text" placeholder="Search" value={query} onChange={sneakerSearch} />
 				: null }
 
 			</div>
